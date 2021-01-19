@@ -8,6 +8,7 @@ type ProviderSettings struct {
 	GitLab    bool `json:"gitlab"`
 	Google    bool `json:"google"`
 	Facebook  bool `json:"facebook"`
+	Twitter   bool `json:"twitter"`
 	Email     bool `json:"email"`
 	SAML      bool `json:"saml"`
 }
@@ -33,6 +34,7 @@ func (a *API) Settings(w http.ResponseWriter, r *http.Request) error {
 			GitLab:    config.External.Gitlab.Enabled,
 			Google:    config.External.Google.Enabled,
 			Facebook:  config.External.Facebook.Enabled,
+			Twitter:   config.External.Twitter.Enabled,
 			Email:     !config.External.Email.Disabled,
 			SAML:      config.External.Saml.Enabled,
 		},

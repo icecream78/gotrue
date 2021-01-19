@@ -85,6 +85,7 @@ type ProviderConfiguration struct {
 	Gitlab      OAuthProviderConfiguration `json:"gitlab"`
 	Google      OAuthProviderConfiguration `json:"google"`
 	Facebook    OAuthProviderConfiguration `json:"facebook"`
+	Twitter     OAuthProviderConfiguration `json:"twitter"`
 	Email       EmailProviderConfiguration `json:"email"`
 	Saml        SamlProviderConfiguration  `json:"saml"`
 	RedirectURL string                     `json:"redirect_url"`

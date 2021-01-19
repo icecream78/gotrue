@@ -160,7 +160,7 @@ The default group to assign all new users to.
 
 ### External Authentication Providers
 
-We support `bitbucket`, `github`, `gitlab`, and `google` for external authentication.
+We support `bitbucket`, `github`, `gitlab`, facebook, twitter, and `google` for external authentication.
 Use the names as the keys underneath `external` to configure each separately.
 
 ```properties
@@ -373,7 +373,8 @@ GoTrue exposes the following endpoints:
       "bitbucket": true,
       "github": true,
       "gitlab": true,
-      "google": true
+      "google": true,
+      "twitter": true,
     },
     "disable_signup": false,
     "autoconfirm": false
@@ -488,7 +489,7 @@ GoTrue exposes the following endpoints:
 
   Magic Link. Will deliver a link (e.g. `/verify?type=magiclink&token=fgtyuf68ddqdaDd`) to the user based on
   email address which they can use to redeem an access_token.
-  
+
   By default Magic Links can only be sent once every 60 seconds
 
   ```json
@@ -502,14 +503,14 @@ GoTrue exposes the following endpoints:
   ```json
   {}
   ```
-  
+
   when clicked the magic link will redirect the user to `<SITE_URL>#access_token=x&refresh_token=y&expires_in=z&token_type=bearer&type=magiclink` (see `/verify` above)
 
 ### **POST /recover**
 
   Password recovery. Will deliver a password recovery mail to the user based on
   email address.
-  
+
   By default recovery links can only be sent once every 60 seconds
 
   ```json
@@ -631,16 +632,16 @@ GoTrue exposes the following endpoints:
   ```
   provider=google | bitbucket | github | gitlab
   ```
- 
+
   Redirects to provider and then to `/callback`
-  
+
 ### **GET /callback**
 
   External provider should redirect to here
- 
+
   Redirects to `<GOTRUE_SITE_URL>#access_token=<access_token>&refresh_token=<refresh_token>&expires_in=3600&provider=<provider_name>`
-  
+
 
 ## TODO
 
-* Schema for custom user data in config file 
+* Schema for custom user data in config file
