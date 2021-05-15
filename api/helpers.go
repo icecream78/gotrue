@@ -97,10 +97,23 @@ func (a *API) requestAud(ctx context.Context, r *http.Request) string {
 	return config.JWT.Aud
 }
 
+func getRedirectTo(r *http.Request) (reqref string) {
+	if err := r.ParseForm(); err == nil {
+		reqref = r.Form.Get("redirect_to")
+	}
+
+	return
+}
+
 func (a *API) getReferrer(r *http.Request) string {
 	ctx := r.Context()
 	config := a.getConfig(ctx)
-	reqref := r.Referer()
+
+	reqref := getRedirectTo(r)
+	if reqref == "" {
+		reqref = r.Referer()
+	}
+
 	if reqref == "" {
 		return ""
 	}
@@ -128,7 +141,11 @@ func (a *API) validateRedirectURL(r *http.Request, reqref string) string {
 	config := a.getConfig(ctx)
 	redirectURL := config.SiteURL
 	if reqref == "" {
-		return redirectURL
+		reqref = getRedirectTo(r) // try fill variable with redirect url
+
+		if reqref == "" {
+			return redirectURL
+		}
 	}
 
 	base, berr := url.Parse(config.SiteURL)
